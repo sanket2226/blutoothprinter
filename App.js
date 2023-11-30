@@ -11,6 +11,7 @@ import {
   View,
   Button,
   Alert,
+  NativeModules
 } from "react-native";
 import { BluetoothManager } from "react-native-bluetooth-escpos-printer";
 import {
@@ -312,6 +313,18 @@ const App = () => {
     }
   };
 
+  const { PrinterModule } = NativeModules
+ 
+
+  const connectPrinterBluetoothPromise = async () => {
+    try {
+      const result = await PrinterModule.connectPrinterBluetooth(boundAddress, name);
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   return (
     <ScrollView style={styles.container}>
       <View style={styles.bluetoothStatusContainer}>
@@ -359,6 +372,7 @@ const App = () => {
         })}
       </View>
       <SamplePrint />
+      <Button onPress={() => connectPrinterBluetoothPromise()} title="Calendar Promise" />
       <Button onPress={() => scanBluetoothDevice()} title="Scan Bluetooth" />
       <View style={{ height: 100 }} />
     </ScrollView>

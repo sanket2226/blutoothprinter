@@ -133,9 +133,15 @@ android {
         }
     }
 }
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
+    implementation(name:'BrotherPrintLibrary', ext:'aar')
     implementation("com.facebook.react:react-android")
     implementation project(':react-native-bluetooth-escpos-printer')
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
