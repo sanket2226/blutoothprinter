@@ -371,7 +371,7 @@ const App = () => {
       </View>
       {/* <SamplePrint/> */}
       <View>
-      <Text>Sample Print Instruction</Text>
+      <Text>Sample Print Instruction </Text>
 
       <View style={{marginBottom: 8,}}>
         <Button
