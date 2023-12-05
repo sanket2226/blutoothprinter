@@ -22,7 +22,7 @@ import {
 import ItemList from "./ItemList";
 import SamplePrint from "./SamplePrint";
 import { styles } from "./styles";
-
+const { PrinterModule } = NativeModules;
 const App = () => {
   const [pairedDevices, setPairedDevices] = useState([]);
   const [foundDs, setFoundDs] = useState([]);
@@ -312,8 +312,6 @@ const App = () => {
       setLoading(false);
     }
   };
-
-  const { PrinterModule } = NativeModules
  
 
   const connectPrinterBluetoothPromise = async () => {
@@ -371,7 +369,26 @@ const App = () => {
           );
         })}
       </View>
-      <SamplePrint />
+      {/* <SamplePrint/> */}
+      <View>
+      <Text>Sample Print Instruction</Text>
+
+      <View style={{marginBottom: 8,}}>
+        <Button
+          title="Print Receipt"
+          onPress={async()=>{
+            try {
+              await PrinterModule.connectPrinterBluetooth(boundAddress, name);
+              const result = await PrinterModule?.executePrint("42817-FDPR-425-ISG");
+              console.log(result);
+              Alert.alert(result)
+            } catch (e) {
+              (e.message || 'ERROR');
+            }
+          }}
+        />
+      </View>
+    </View>
       <Button onPress={() => connectPrinterBluetoothPromise()} title="Calendar Promise" />
       <Button onPress={() => scanBluetoothDevice()} title="Scan Bluetooth" />
       <View style={{ height: 100 }} />

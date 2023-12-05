@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { BluetoothEscposPrinter } from 'react-native-bluetooth-escpos-printer';
+import { Button, StyleSheet, Text, View,NativeModules } from 'react-native';
 import { hsdLogo } from './dummy-logo';
-
+const { PrinterModule } = NativeModules;
 async function printreciept() {
   const columnWidths = [24, 24];
   const receiptNo = 120;
@@ -21,9 +20,8 @@ async function printreciept() {
   const collectionRecieptNo = 121;
 
   try {
-
-
-    await BluetoothEscposPrinter.printText('\r\n', {});
+    const result = await PrinterModule?.executePrint("42817-FDPR-425-ISG");
+    console.log(result);
   } catch (e) {
     alert(e.message || 'ERROR');
   }
